@@ -1,0 +1,56 @@
+{% extends 'base.html'%}
+{% block content%}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12" >
+            <div class="banner"style="background-color:#ff66b3;width:100%;height:200px;margin-bottom:50px;">
+                <div class="banner-text"style="top:50%;left:50%;text-align:center;transform:transform;">
+                    <h1> To-Do List </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<div class="container">
+    <div class="row g-3">
+        <div class="col-md-6">
+            <h4>Tasks to add</h4>
+            <form method='POST' class="p-3 shadow">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" placeholder="Enter the task...!"><br>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="priority" placeholder="Priority number...!"><br>
+                </div>
+                <div class="form-group">
+                    <input type="date" class="form-control" name="date" placeholder="Date.....!"><br>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <h4>Task to be Done</h4>
+            {% for i in task1 %}
+            <div class=" shadow card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ i.name }}</h5>
+                    <p><b>{{ i.priority }}</b></p>
+                    <p><b>{{ i.date }}</b></p>
+                    <a class="btn btn-danger" href="{% url 'delete' i.id %}">Done</a>
+                    <a class="btn btn-success" href="{% url 'update' i.id %}">Update</a>
+                </div>
+            </div>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
